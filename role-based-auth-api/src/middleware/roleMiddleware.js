@@ -1,0 +1,17 @@
+
+const roleMiddleware = (...roles) => {
+    return (req, res, next) => {
+        console.log("User Role:", req.user.role);
+        console.log("Allowed Roles:", roles);
+
+        if (roles.includes(req.user.role)) {
+            return next();
+        }
+
+        return res.status(403).json({
+            message: "Unauthorized"
+        });
+    };
+};
+
+export default roleMiddleware;
